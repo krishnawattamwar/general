@@ -13,7 +13,7 @@ while [ 1 ] ; do
     HOUR="$(date +'%H')"
         DATE="$(date)"
         #Enter Today's Time between 1-23
-        if [ $HOUR -ge 21 -a $HOUR -lt 00 ] ; then #do it's job between 10PM and 7AM 
+        if [ $HOUR -ge 21 -a $HOUR -lt 23 ] ; then #do it's job between 10PM and 7AM 
         #run program
 #       echo "1hi $DATE" >> $SYNC_LOG
         aws s3 sync $SYNC_DIR --region=us-east-1 s3://98backup/99_server_bkp$SYNC_DIR >> $SYNC_LOG
