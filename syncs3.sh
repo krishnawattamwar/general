@@ -1,8 +1,8 @@
 #!/bin/bash
-SYNC_DIR="/var/www/html/gmwork/"
+SYNC_DIR="/var/www/html/"
 LOGFILE="/var/www/html/krishna/logs/autotest_run_count.txt"
 LOGFILE1="/var/www/html/krishna/logs/99bkpsync.log"
-SYNC_LOG="/var/www/html/krishna/logs/sync_log.log"
+SYNC_LOG="/var/www/html/krishna/logs/sync_$(date +"%Y_%m_%d-%I_%M_%p").log"
 #SIZE=$(du -csh $SYNC_DIR | awk '{if(NR==1) print $1}')
 
 #echo -e "Hello, \n\n99 server sync details are as below:\nSync dir= $SYNC_DIR\nSIZE of backup= $SIZE \n\nThanks and Regards,\nTeam Itsupport"  > $LOGFILE1
@@ -17,6 +17,7 @@ while [ 1 ] ; do
         #run program
 #       echo "1hi $DATE" 
         aws s3 sync $SYNC_DIR --region=us-east-1 s3://98backup/99_server_bkp$SYNC_DIR >> $SYNC_LOG
+#        aws s3 sync /var/www/html/ --region=us-east-1 s3://98backup/99_server_bkp/var/www/html/ >> /var/www/html/krishna/logs/sync_log.log
         RUNS=$((RUNS+9))
         echo $RUNS > $LOGFILE
 
