@@ -2,6 +2,7 @@
 SYNC_DIR="/var/www/html/gmwork/"
 LOGFILE="/var/www/html/krishna/logs/autotest_run_count.txt"
 LOGFILE1="/var/www/html/krishna/logs/99bkpsync.log"
+SYNC_LOG="/var/www/html/krishna/logs/sync_log.log"
 #SIZE=$(du -csh $SYNC_DIR | awk '{if(NR==1) print $1}')
 
 #echo -e "Hello, \n\n99 server sync details are as below:\nSync dir= $SYNC_DIR\nSIZE of backup= $SIZE \n\nThanks and Regards,\nTeam Itsupport"  > $LOGFILE1
@@ -15,7 +16,7 @@ while [ 1 ] ; do
         if [ $HOUR -ge 21 -a $HOUR -lt 00 ] ; then #do it's job between 10PM and 7AM 
         #run program
 #       echo "1hi $DATE" 
-        aws s3 sync $SYNC_DIR --region=us-east-1 s3://98backup/99_server_bkp$SYNC_DIR
+        aws s3 sync $SYNC_DIR --region=us-east-1 s3://98backup/99_server_bkp$SYNC_DIR >> $SYNC_LOG
         RUNS=$((RUNS+9))
         echo $RUNS > $LOGFILE
 
@@ -23,7 +24,7 @@ while [ 1 ] ; do
                 elif [ $HOUR -ge 00 -a $HOUR -lt 7 ] ; then #do it's job between 10PM and 7AM
                 # run program
 #               echo "2hi $DATE" 
-                aws s3 sync $SYNC_DIR --region=us-east-1 s3://98backup/99_server_bkp$SYNC_DIR
+                aws s3 sync $SYNC_DIR --region=us-east-1 s3://98backup/99_server_bkp$SYNC_DIR  >> $SYNC_LOG
                 RUNS=$((RUNS+9))
                 echo $RUNS > $LOGFILE    
         else
