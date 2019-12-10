@@ -15,7 +15,7 @@ while [ 1 ] ; do
         #Enter Today's Time between 1-23
         if [ $HOUR -ge 21 -a $HOUR -lt 00 ] ; then #do it's job between 10PM and 7AM 
         #run program
-#       echo "1hi $DATE" 
+#       echo "1hi $DATE" >> $SYNC_LOG
         aws s3 sync $SYNC_DIR --region=us-east-1 s3://98backup/99_server_bkp$SYNC_DIR >> $SYNC_LOG
 #        aws s3 sync /var/www/html/ --region=us-east-1 s3://98backup/99_server_bkp/var/www/html/ >> /var/www/html/krishna/logs/sync_log.log
         RUNS=$((RUNS+9))
@@ -24,7 +24,7 @@ while [ 1 ] ; do
                 #If you wish to run script aft 00:00 then mention time below:
                 elif [ $HOUR -ge 00 -a $HOUR -lt 7 ] ; then #do it's job between 10PM and 7AM
                 # run program
-#               echo "2hi $DATE" 
+#               echo "2hi $DATE" >> $SYNC_LOG
                 aws s3 sync $SYNC_DIR --region=us-east-1 s3://98backup/99_server_bkp$SYNC_DIR  >> $SYNC_LOG
                 RUNS=$((RUNS+9))
                 echo $RUNS > $LOGFILE    
